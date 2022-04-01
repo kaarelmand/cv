@@ -1,0 +1,908 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A clean template for an academic CV
+%
+% Uses tabularx to create two column entries (date and job/edu/citation).
+% Defines commands to make adding entries simpler.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt, a4paper]{article}
+
+% Full Unicode support for non-ASCII characters
+\usepackage[utf8]{inputenc}
+
+% Useful aliases
+\newcommand{\UT}{University of Tartu}
+\newcommand{\UTGEO}{Department of Geology}
+\newcommand{\UA}{University of Alberta}
+\newcommand{\UAEAS}{Department of Earth and Atmospheric Sciences}
+
+% Identifying information
+\newcommand{\Title}{Curriculum Vit\ae}
+\newcommand{\FirstName}{Kaarel}
+\newcommand{\LastName}{Mänd}
+\newcommand{\Initials}{K}
+\newcommand{\MyName}{Dr. \FirstName\ \LastName}
+\newcommand{\Me}{\textbf{\LastName, \Initials}}  % For citations
+\newcommand{\Email}{kaarel.mand@ut.ee}
+\newcommand{\PersonalWebsite}{kaarelmand.github.io}
+\newcommand{\ETIS}{www.etis.ee/CV/Kaarel\_Mand}
+\newcommand{\ORCID}{0000-0003-1575-3710}
+\newcommand{\Address}{
+  University of Tartu \\ Department of Geology \\ Ravila 14A \\ Tartu 50411 \\ Estonia
+}
+
+% Names for citing coauthors
+\newcommand{\Arps}{Kirsimäe, K}
+\newcommand{\Kart}{Paiste, K}
+\newcommand{\Parn}{Paiste, P}
+\newcommand{\Aivo}{Lepland, A}
+\newcommand{\Kurt}{Konhauser, KO}
+\newcommand{\Weid}{Hao, W}
+\newcommand{\Dan}{Alessi, DS}
+\newcommand{\Bau}{Bau, M}
+\newcommand{\Tony}{Prave, AR}
+\newcommand{\Tim}{Kreistmann, T}
+\newcommand{\Sasha}{Romashkin, AE}
+\newcommand{\Yul}{Deines, YE}
+\newcommand{\Jake}{Bailey, JV}
+\newcommand{\Karen}{Bakakas, K}
+\newcommand{\Stef}{Lalonde, SV}
+\newcommand{\Jamie}{Robbins, LJ}
+\newcommand{\Marie}{Thoby, M}
+\newcommand{\Sus}{Porter, SM}
+\newcommand{\Noah}{Planavsky, NJ}
+\newcommand{\Chris}{Reinhard, CT}
+\newcommand{\Dave}{Fike, DA}
+\newcommand{\Aub}{Zerkle, AL}
+\newcommand{\MWil}{Williams, MJ}
+\newcommand{\Dylan}{Wilmeth, DT}
+\newcommand{\Kim}{Myers, KD}
+\newcommand{\Mark}{van Zuilen, MA}
+\newcommand{\Bos}{Wing, B}
+\newcommand{\Hao}{Yan, H}
+
+% Template configuration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Disable hyphenation
+\usepackage[none]{hyphenat}
+
+% Control the font size
+\usepackage{anyfontsize}
+
+% Icon fonts (requires using xelatex or luatex)
+\usepackage[fixed]{fontawesome5}
+\usepackage{academicons}
+
+% Template variables for styling
+\newcommand{\TablePad}{\vspace{-0.4cm}}
+\newcommand{\SoftwareTitle}[1]{{\bfseries #1}}
+\newcommand{\TableTitle}[1]{{\fontsize{12pt}{0}\selectfont \itshape #1}}
+
+% For fancy and multipage tables
+\usepackage{tabularx}
+\usepackage{ltablex}
+
+% Define a new environment to place all CV entries in a 2-column table.
+% Left column are the dates, right column the entries.
+\usepackage{environ}
+\NewEnviron{EntriesTable}{
+\TablePad
+\begin{tabularx}{\textwidth}{@{}p{0.12\textwidth}@{\hspace{0.02\textwidth}}p{0.86\textwidth}@{}}
+  \BODY
+\end{tabularx}
+}
+
+% Macros to add links and mark publications
+\newcommand{\DOI}[1]{\newline DOI: \aiDoi\ \href{https://doi.org/#1}{#1}}
+\newcommand{\DOILink}[1]{\href{https://doi.org/#1}{doi.org/#1}}
+\newcommand{\Website}[1]{\href{https://#1}{#1}}
+\newcommand{\Preprint}[1]{\newline Preprint: \faFilePdf\ \DOILink{#1}}
+\newcommand{\Youtube}[1]{\newline Recording: \faYoutube\, \href{https://www.youtube.com/watch?v=#1}{youtube.com/watch?v=#1}}
+\newcommand{\GitHub}[1]{\newline Code: \faGithub\ \href{https://github.com/#1}{github.com/#1}}
+\newcommand{\Role}[1]{\newline Role: \faUsers\ #1}
+\newcommand{\Slides}[1]{\newline Slides: \faTv\ \href{https://#1}{#1}}
+\newcommand{\Poster}[1]{\newline Poster: \faTv\ \href{https://#1}{#1}}
+\newcommand{\Abstract}[1]{\newline Abstract: \faFile\ \Website{#1}}
+\newcommand{\SlidesShort}[2]{\newline Slides: \faTv\ \href{https://#1}{#2}}
+\newcommand{\PosterShort}[2]{\newline Poster: \faTv\ \href{https://#1}{#2}}
+\newcommand{\AbstractShort}[2]{\newline Abstract: \faFile\ \href{https://#1}{#2}}
+\newcommand{\SlidesDOI}[1]{\newline Slides: \faTv\ \DOILink{#1}}
+\newcommand{\PosterDOI}[1]{\newline Poster: \faImage\ \DOILink{#1}}
+\newcommand{\AbstractDOI}[1]{\newline Abstract: \faFile\ \DOILink{#1}}
+\newcommand{\OA}{\aiOpenAccess\enspace}
+
+% Macros to set the year and duration on the left column
+\newcommand{\Duration}[2]{\fontsize{9pt}{0}\selectfont #1 -- #2}
+\newcommand{\Year}[1]{\fontsize{9pt}{0}\selectfont #1}
+\newcommand{\Ongoing}{present}
+\newcommand{\Future}{Future}
+\newcommand{\Appointment}[4]{\textbf{#1} \newline #2 \newline #3}
+
+% Define command to insert month name and year as date
+\usepackage{datetime}
+\newdateformat{monthyear}{\monthname[\THEMONTH], \THEYEAR}
+
+% Set the page margins
+\usepackage[a4paper,margin=1.5cm,includehead,headsep=5mm]{geometry}
+
+% To get the total page numbers (\pageref{LastPage})
+\usepackage{lastpage}
+
+% No indentation
+\setlength\parindent{0cm}
+
+% Increase the line spacing
+\renewcommand{\baselinestretch}{1.2}
+% and the spacing between rows in tables
+\renewcommand{\arraystretch}{1.5}
+
+% Remove space between items in itemize and enumerate
+\usepackage{enumitem}
+\setlist{nosep}
+
+% Use custom colors
+\usepackage[usenames,dvipsnames]{xcolor}
+
+% Set fonts (requires compilation with xelatex)
+\usepackage{fontspec}
+\setmainfont[%
+  Path = fonts/notoserif/,
+  UprightFont = NotoSerif-Regular,
+  BoldFont = NotoSerif-Bold,
+  ItalicFont = NotoSerif-Italic,
+  Extension = .ttf
+]{NotoSerif}
+
+
+
+% Set the spacing for sections
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\Large\mdseries} % format
+  {} % label
+  {0pt} % separation (left separation for hang)
+  {} % text before title
+  [\titlerule] % text after title
+\titleformat{\subsection}
+  {\normalfont\large\mdseries} % format
+  {} % label
+  {0pt} % separation (left separation for hang)
+  {} % text before title
+
+% Disable number of sections. Use this instead of "section*" so that the sections still
+% appear as PDF bookmarks. Otherwise, would have to add the table of contents entries
+% manually.
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother
+
+% Set fancy headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\fontsize{9pt}{10pt}\selectfont
+  \monthyear\today
+}
+\chead{
+  \fontsize{9pt}{10pt}\selectfont
+  \MyName
+  \hspace{0.2cm} -- \hspace{0.2cm}
+  \Title
+}
+\rhead{\fontsize{9pt}{10pt}\selectfont \thepage{} of \pageref*{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+
+% Metadata for the PDF output and control of hyperlinks
+\usepackage[colorlinks=true]{hyperref}
+\hypersetup{
+  pdftitle={\MyName\ - \Title},
+  pdfauthor={\MyName},
+  linkcolor=blue,
+  citecolor=blue,
+  filecolor=black,
+  urlcolor=MidnightBlue
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+% No header for the first page
+\thispagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{minipage}[t]{0.7\textwidth}
+{\fontsize{22pt}{0}\selectfont\MyName}
+\end{minipage}
+\begin{minipage}[t]{0.3\textwidth}
+  \begin{flushright}
+    Last updated: \monthyear\today
+  \end{flushright}
+\end{minipage}
+\\[-0.1cm]
+\rule{\textwidth}{2pt}
+\\[0.1cm]
+\begin{minipage}[t]{0.7\textwidth}
+    Email: \href{mailto:\Email}{\Email}
+    \\
+    ORCID: \href{https://orcid.org/\ORCID}{\ORCID}
+    \\
+    Website: \Website{\PersonalWebsite}
+    \\
+    ETIS: \Website{\ETIS}
+\end{minipage}
+\begin{minipage}[t]{0.3\textwidth}
+  \begin{flushright}
+    \Address
+  \end{flushright}
+\end{minipage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Professional Appointments}
+
+\begin{EntriesTable}
+  \Duration{2020}{\Ongoing}  &
+  \textbf{Research Fellow}
+  \newline
+  \emph{\UT, \UTGEO, Estonia}
+  \\
+  \Duration{2018}{2019}  &
+  \textbf{Teaching Assistant}
+  \newline
+  \emph{\UA, \UAEAS, Canada}
+  \\
+  \Duration{2018}{2020}  &
+  \textbf{Peer Writing Tutor}
+  \newline
+  \emph{\UA, Centre for Writers, Canada}
+  \\
+  \Duration{2016}{2020}  &
+  \textbf{Environmental Chemistry Specialist}
+  \newline
+  \emph{\UT, \UTGEO, Estonia}
+  \\
+  \Duration{2013}{2015}  &
+  \textbf{Laboratory Assistant}
+  \newline
+  \emph{\UT, \UTGEO, Estonia}
+\end{EntriesTable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Education}
+
+\begin{EntriesTable}
+  \Duration{2016}{2021}  &
+  \textbf{PhD in Geochemistry}
+  \newline
+  \emph{\UA, \UAEAS, Canada}
+  \newline
+  Supervisors: Kurt O. Konhauser, Aivo Lepland, Kalle Kirsimäe
+  \\
+  \Duration{2014}{2016}  &
+  \textbf{MSc in Geology} \emph{cum laude}
+  \newline
+  \emph{\UT, \UTGEO, Estonia}
+  \newline
+  Supervisor: Kalle Kirsimäe
+  \\
+  \Duration{2010}{2013}  &
+  \textbf{BSc in Geology} \emph{cum laude}
+  \newline
+  \emph{\UT, \UTGEO, Estonia}
+  \newline
+  Supervisor: Kalle Kirsimäe
+\end{EntriesTable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Grants \& Funded Projects}
+
+\begin{EntriesTable}
+  \Duration{2020}{2023}  &
+  Estonian Research Council: "\textbf{Vanadium distribution and compounds in Tremadocian black shale and potential extraction technologies}." PI: Rutt Hints. \emph{Tallinn University of Technology, \UT}. Grant ID: \href{https://www.etis.ee/Portal/Projects/Display/01ce0ae7-decb-43a9-a55a-49a7c75654bd?lang=ENG}{ResTA18}.
+  \\
+  \Duration{2016}{2021}  &
+  Ministry of Education and Research of the Republic of Estonia, Archimedes Foundation: \textbf{Kristjan Jaak Scholarship for doctoral study abroad}. \FirstName \ \LastName, for study at \UA, Canada.
+\end{EntriesTable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Awards \& Honors}
+
+\begin{EntriesTable}
+  \Duration{2019}{2020}  &
+  \textbf{Ashley \& Janet Cameron Graduate Scholarship}
+  \newline
+  \emph{UAlberta North, \UA, Canada}
+  \\
+  \Year{2019}  &
+  \textbf{Graduate Fellowship}
+  \newline
+  \emph{\UA, Canada}
+  \\
+  ~  &
+  \textbf{Graduate Student Teaching Award}
+  \newline
+  \emph{\UA, Canada}
+  \\
+  \Year{2018}  &
+  \textbf{Vega Graduate Scholarship}
+  \newline
+  \emph{\UA, Canada}
+  \\
+  ~  &
+  \textbf{Harington Paleoenvironmental Scholarship}
+  \newline
+  \emph{\UA, Canada}
+  \\
+  ~  &
+  \textbf{Steve and Elaine Antoniuk Graduate Scholarship} in Arctic Research in Earth and Atmospheric Sciences
+  \newline
+  \emph{\UA, Canada}
+  \\
+  \Duration{2016}{2020}  &
+  \textbf{Doctoral Recruitment Scholarship}
+  \newline
+  \emph{\UA, Canada}
+  \\
+  \Year{2014}  &
+  National Contest for University Students: \textbf{1st prize in Bio- and Environmental Science} (undergraduate level)
+  \newline
+  \emph{Estonian Research Council, Estonia}
+\end{EntriesTable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Academic Service}
+
+\subsection{Administration}
+\begin{EntriesTable}
+  \Duration{2021}{\Ongoing}  &
+  Erasmus+ Departmental Coordinator
+  \newline
+  Negotiating inter-university agreements, evaluating student applications.
+  \newline
+  \emph{\UTGEO, \UT}
+\end{EntriesTable}
+
+\subsection{Committees}
+
+\begin{EntriesTable}
+  \Year{\Future} &
+  Undergraduate Student Admissions Committee
+  \newline
+  \emph{\UTGEO, \UT}
+  \\
+  ~ &
+  Master's Dissertation Examination Committee
+  \newline
+  \emph{\UTGEO, \UT}
+  \\
+  \Duration{2022}{\Ongoing} &
+  Vision and Integration Committee of the Institute of Ecology and Earth Sciences
+  \newline
+  Conference organization, student advocacy, ecological advocacy.
+  \newline
+  \emph{\UT}
+  \Year{2020}
+\end{EntriesTable}
+
+\subsection{Reviewer}
+
+\begin{itemize}
+  \item Science
+  \item Nature Communications
+  \item Proceedings of the National Academy of Sciences
+  \item Chemical Geology
+  \item Precambrian Research
+  \item Canadian Journal of Earth Sciences
+  \item Estonian Journal of Earth Sciences
+\end{itemize}
+
+\subsection{Examiner}
+
+\begin{EntriesTable}
+  \Year{2021} &
+  MSc dissertation examiner (Nanyun Zhang)
+  \newline
+  \emph{\UT, Institute of Chemistry}
+  \\
+  ~ &
+  BSc dissertation examiner (Maria Ojap)
+  \newline
+  \emph{\UT, \UTGEO}
+\end{EntriesTable}
+
+\subsection{Conferences}
+
+\begin{EntriesTable}
+
+\Year{2021} &
+  Schola Geologica XVII
+  \newline
+  Session chair.
+  \newline
+  \emph{Tartu, Estonia}
+  \\
+\Year{2020} &
+  Northern Research Day 2020
+  \newline
+  Oral presentation awards adjucator.
+  \newline
+  \emph{Edmonton, AB, Canada}
+  \\
+\Year{2019} &
+  2nd Geobiology Society Conference 
+  \newline
+  Session chair and co-organizer.
+  \newline
+  \emph{Banff, AB, Canada}
+  \\
+\Year{2017} &
+  1st Geobiology Society Conference
+  \newline
+  Co-organizer.
+  \newline
+  \emph{Banff, AB, Canada}
+\end{EntriesTable}
+
+\subsection{Open-Source Software}
+
+\begin{EntriesTable}
+  \Duration{2020}{\Ongoing}  &
+  \textbf{pyrolite} | \Website{https://pyrolite.readthedocs.io/en/main/}
+  \newline
+  A set of tools for getting the most from your geochemical data. 
+  \Role{Code contributor}
+  \GitHub{morganjwilliams/pyrolite}
+\end{EntriesTable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Teaching \& Mentorship}
+
+\subsection{Courses}
+
+\begin{EntriesTable}
+  \Duration{2021}{\Ongoing}  &
+  LTOM.03.006: \textbf{Isotope Geochemistry and Geochemical Modelling}
+  \newline
+  Teaching the module on transition metal isotopes.
+  \newline
+  \textit{\UT, Estonia}
+  \\
+  \Duration{2018}{2019}  &
+  EA100: \textbf{Planet Earth}
+  \newline
+  Lab instructor and examiner for two lab groups (40 students per year).
+  \newline
+  \textit{\UA, Canada}
+  \\
+  \Year{2018}  &
+  EA205: \textbf{Environment Earth}
+  \newline
+  Teaching the module on earthquakes.
+  \newline
+  \textit{\UA, Canada}
+  \\
+  \Year{2014}  &
+  LOOM.03.010: \textbf{Field-training of Earth Sciences I}
+  \newline
+  Field co-instructor.
+  \newline
+  \textit{\UT, Estonia}
+\end{EntriesTable}
+
+\subsection{Supervision}
+
+\begin{EntriesTable}
+  \Year{\Future}  &
+  \textbf{Bojidar Mandjukov}
+  \newline
+  Lead PhD advisor.
+  \newline
+  \emph{\UT, \UTGEO, Estonia}
+  \newline
+  Co-supervisor: Anthony Chappaz
+  \\
+  \Year{2019}  &
+  \textbf{Baptiste Coutret}
+  \newline
+  Direct supervisor on BSc thesis and undergraduate internship.
+  \newline
+  \emph{\UA, Canada; Université de Poitiers, France}
+  \newline
+  Co-supervisors: Abderrazak El Albani, Kurt O. Konhauser
+\end{EntriesTable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Media \& Outreach}
+
+\begin{EntriesTable}
+\Year{2021}  &
+  Interviewed by \textit{Eos} magazine,
+  \textit{``Updating Dating Helps Tackle Deep-Time Quandaries''}
+  (22 February 2022):
+  \href{https://eos.org/features/updating-dating-helps-tackle-deep-time-quandaries}{eos.org/features/updating-dating-helps-tackle-deep-time-quandaries}
+  \\
+\Year{2020}  &
+  Interviewed by \textit{Smithsonian Air \& Space} magazine,
+  \textit{``Long-lasting Oxygen in Earth’s Early Atmosphere May Have Jump-Started the Evolution to Animal Life''}
+  (19 May 2020):
+ \href{https://www.smithsonianmag.com/air-space-magazine/long-lasting-oxygen-earths-early-atmosphere-may-have-jump-started-evolution-animal-life-180974919/}{smithsonianmag.com/air-space-magazine/...}
+  \\
+~  &
+  Interviewed by \textit{Õhtuleht} newspaper,
+  \textit{``MILJARDIPARADOKS LAHENEB! Eesti teadlased kirjutavad ümber maakera ajalugu''}
+  (12 May 2020):
+  \href{https://www.ohtuleht.ee/1001539/miljardiparadoks-laheneb-eesti-teadlased-kirjutavad-umber-maakera-ajalugu}{ohtuleht.ee/1001539}
+  \\
+~  &
+  Interviewed by the radio show \textit{``Labor''} on
+  \textit{Vikerraadio}
+  (09 May, 2020):
+  \href{https://vikerraadio.err.ee/1082611/labor-ohuhapniku-ajalugu-ja-viljakusmolekulid}{vikerraadio.err.ee/1082611/labor-ohuhapniku-ajalugu-ja-viljakusmolekulid}
+  \\
+~  &
+  Interviewed by the radio show \textit{``Alberta Morning News''} on
+  \textit{770 CHQR Newstalk}
+  (03 May 2020).
+  \\
+~  &
+  Interviewed by \textit{Strana Rosatom: Laboratory} magazine.
+  \\
+~  &
+  Co-published press report on the web portal \textit{Novaator},
+  \textit{``Keskikka jõudnud Maa atmosfäär püsis ootamatult hapnikurikas''}
+  (19 March 2020):
+  \href{https://novaator.err.ee/1065971/keskikka-joudnud-maa-atmosfaar-pusis-ootamatult-hapnikurikas}{novaator.err.ee/1065971}
+  \\
+~  &
+  Co-published press report on the web portal \textit{EurekAlert!},
+  \textit{``Study challenges common view of oxygen scarcity on Earth 2 billion years ago''}
+  (24 March 2020):
+  \href{https://www.eurekalert.org/news-releases/665842}{eurekalert.org/news-releases/665842}
+  \\
+\Year{2018}  &
+  Published press report on the web portal \textit{Science Trends},
+  \textit{``Geochemical Methods Help Resolve A Long-Standing Debate In Amber Palaeontology''}
+  (17 December 2018):
+  \href{https://sciencetrends.com/geochemical-methods-help-resolve-a-long-standing-debate-in-amber-palaeontology/}{sciencetrends.com/...}
+  \\
+\Year{2015}  &
+  Instructor at an outreach day for high-school students as part of the \textit{RGNO2015} oceanographic summer school in Swakompund, Namibia.
+  \\
+~  &
+  Volunteer at \textit{Science Town, Tartu Hanseatic Days} in Tartu, Estonia.
+  \\
+\Duration{2014}{2015}  &
+  Various geoscience recruiting talks and tours for the \UT, \UTGEO, Estonia.
+\end{EntriesTable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Presentations}
+
+\begin{EntriesTable}
+\Year{2021}  &
+  \Me, \Noah, \Sus, \Jamie, Wang, C, \Tim, \Kart, \Parn, \Yul, \Arps, \Aivo, \Kurt.
+  Protracted oxygenation in the Paleoproterozoic did not result in proliferation of mitochondrial organisms,
+  \emph{Goldschmidt 2021},
+  Bordeaux, France (online).
+  \AbstractDOI{10.7185/gold2021.6732}
+  \\
+  ~ &
+  \Tim, \Aivo, \Bau, \Tony, \Kart, \Me, \Sasha, \Arps.
+  Rare Earth Elements Аnd Carbon Isotope Record from the Carbonates of the Zaonega Formation,
+  \emph{Shungite-2020–2021},
+  Petrozavodsk, Russia (online).
+  \Abstract{elibrary.ru/item.asp?id=46491364}
+  \\
+  ~ &
+  \Kart, \Dave, \Arps, \Me, \Parn, Jones, C, \Aivo, \Tony, \Sasha.
+  Testing the Global Significance of the Sulfur Isotope Record of the Paleoproterozoic Zaonega Formation,
+  \emph{Shungite-2020–2021},
+  Petrozavodsk, Russia (online).
+  \Abstract{elibrary.ru/item.asp?id=46491364}
+  \\
+  ~ &
+  \Me.
+  The origins of biodiversity: Did changing oxygen levels in the Proterozoic induce the rise of complex life?
+  \emph{Seminars on Animal Ecology},
+  Tartu, Estonia.
+  \SlidesShort{kaarelmand.github.io/publication/mand-2021-originsbiodiversity-did/mand-2021-originsbiodiversity-did.pdf}{kaarelmand.github.io/publication/mand-2021-originsbiodiversity-did}
+  \\
+  \Year{2020} &
+  \Me.
+  Kaotatud paradiis ja keeruka elu häll: Hapnik ja päristuumsed 2 miljardit aastat tagasi,
+  \emph{Schola Geologica XVI: Living densely together},
+  Tartu, Estonia.
+  \SlidesShort{https://kaarelmand.github.io/publication/mand-2020-kaotatudparadiisja/mand-2020-kaotatudparadiisja.pdf}{kaarelmand.github.io/publication/mand-2020-kaotatudparadiisja}
+  \\
+  ~ &
+  \Aivo, \Karen, Moussavou, M, \Tim, \Kart, \Me, \Yul, \Sasha, \Tony, \Arps.
+  Lomagundi-Jatuli Carbon Isotope Excursion – Isotopic Shift Happens,
+  \emph{Goldschmidt 2020},
+  Hawaii, USA (online).
+  \AbstractDOI{10.46427/gold2020.1460}
+  \\
+  ~ &
+  \MWil, Schoneveld, L, Miller, L, Mao, Y, \Me, Gosses, J, Dalton, H, Bath, A, Barnes, SJ.
+  pyrolite: Tools for Data Driven Geochemistry,
+  \emph{AGU 2020},
+  Online.
+  \AbstractShort{ui.adsabs.harvard.edu/abs/2020AGUFMIN040..06W/abstract}{ui.adsabs.harvard.edu/abs/2020AGUFMIN040..06W}
+  \\
+  ~ &
+  \Dylan, \Kim, \Stef, \Me, \Kurt, Grandin, P, \Mark.
+  Oxygen and pH gradients within silicifying microbial mats in El Tatio, Chile,
+  \emph{Gordon Research Conference “Geobiology 2020”},
+  Galveston, Texas, USA.
+  \\
+  \Year{2019} &
+  \Me, \Jamie, \Stef, \Marie, \Kart, \Tim, \Parn, \Chris, \Sasha, \Arps, \Aivo, \Kurt.
+  Oxygenated oceans persisted after the Lomagundi Event: evidence from the Zaonega Formation,
+  \emph{2nd Geobiology Society Meeting},
+  Banff, Alberta, Canada.
+  \PosterShort{kaarelmand.github.io/publication/mand-2019-oxygenatedoceanspersisted/mand-2019-oxygenatedoceanspersisted.pdf}{kaarelmand.github.io/publication/mand-2019-oxygenatedoceanspersisted}
+  \AbstractShort{cms.eas.ualberta.ca/geobiology2019/wp-content/uploads/sites/28/2019/06/Geobiology-Conference-proceedings.pdf}{cms.eas.ualberta.ca/geobiology2019}
+  \\
+  ~ &
+  \Weid, \Me, Li, Y, \Dan, \Kurt.
+  Acid weathering, clay transport and enhanced phosphate supply to early Paleoproterozoic oceans following the Great Oxidation Event,
+  \emph{2nd Geobiology Society Meeting},
+  Banff, Alberta, Canada.
+  \AbstractShort{cms.eas.ualberta.ca/geobiology2019/wp-content/uploads/sites/28/2019/06/Geobiology-Conference-proceedings.pdf}{cms.eas.ualberta.ca/geobiology2019}
+  \\
+  \Year{2018} &
+  \Me, \Marie, \Stef, \Kart, \Jamie, \Aivo, \Arps, \Kurt.
+  High molybdenum abundance in the  2 Ga Zaonega Formation: Implications for seawater following the Lomagundi Excursion,
+  \emph{Gordon research conference “Geobiology 2018”},
+  Galveston, Texas, USA.
+  \PosterShort{kaarelmand.github.io/publication/mand-2018-highmolybdenumabundance/mand-2018-highmolybdenumabundance.pdf}{kaarelmand.github.io/publication/mand-2018-highmolybdenumabundance}
+  \\
+  ~ &
+Paiste, K., Lepland, A., Zerkle, A.L., Wing, B.A., Kreitsmann, T., Kirsimäe, K., Izon, G., Mänd, K., Bui, T.H.
+  \Kart, \Aivo, \Aub, \Bos, \Tim, \Arps, Izon, G, \Me, Bui, TH.
+  Multiple S and Corg isotopes recording environmental changes in the ca. 2Ga Zaonega Fm, Onega Basin, Russia,
+  \emph{Gordon research conference “Geobiology 2018”},
+  Galveston, Texas, USA.
+  \\
+  \Year{2017} &
+  \Me, \Aivo, \Marie, \Stef, \Kart, \Jamie, \Arps, \Kurt.
+  Trace metal enrichment in 1.98 Ga black shales of the Zaonega Formation,
+  \emph{1st Geobiology Society Meeting},
+  Banff, Alberta, Canada.
+  \PosterShort{kaarelmand.github.io/publication/mand-2017-tracemetalenrichment/mand-2017-tracemetalenrichment.pdf}{kaarelmand.github.io/publication/mand-2017-tracemetalenrichment}
+  \\
+  \Year{2016} &
+  \Me, \Jake, \Aivo, \Arps.
+  Origin of rod and dumbbell shaped phosphate precipitates in Namibian shelf sediments,
+  \emph{32nd Nordic Geological Winter Meeting},
+  Helsinki, Finland.
+  \SlidesShort{kaarelmand.github.io/publication/mand-2016-originroddumbbell/mand-2016-originroddumbbell.pdf}{kaarelmand.github.io/publication/mand-2016-originroddumbbell}
+  \\
+  \Year{2015} &
+  \Me, \Jake, \Aivo, \Arps.
+  Apatitic micronodules in Namibian shelf sediments: Mineralized microbes or diagenetic precipitates?
+  \emph{Goldschmidt 2015},
+  Prague, Czechia.
+  \SlidesShort{kaarelmand.github.io/publication/mand-2015-apatiticmicronodules-namibian/mand-2015-apatiticmicronodules-namibian.pdf}{kaarelmand.github.io/publication/mand-2015-apatiticmicronodules-namibian}
+  \Abstract{goldschmidtabstracts.info/abstracts/abstractView?id=2015003584}
+  \\
+  ~ &
+  \Me.
+  Phosphatised microstructures in ancient and modern phosphorites,
+  \emph{Scientific knowledge applied to the sustainable use of coastal upwelling ecosystems},
+  Swakopmund, Namibia.
+  \SlidesShort{kaarelmand.github.io/publication/mand-2015-phosphatisedmicrostructuresancient/mand-2015-phosphatisedmicrostructuresancient.pdf}{kaarelmand.github.io/publication/mand-2015-phosphatisedmicrostructuresancient}
+  \\
+  \Year{2014} &
+  \Me.
+  Mikrofossiilid maailma vanimates fosforiitides,
+  \emph{Schola Geologica X},
+  Jäneda, Estonia.
+  \SlidesShort{kaarelmand.github.io/publication/mand-2014-mikrofossiilidmaailmavanimates\_/mand-2014-mikrofossiilidmaailmavanimates\_.pdf}{kaarelmand.github.io/publication/mand-2014-mikrofossiilidmaailmavanimates\_}
+\end{EntriesTable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Publications}
+
+\subsection{Peer-reviewed Papers}
+
+\begin{EntriesTable}
+  \Year{2022} &
+  \Hao, Pi, D-H, Jiang, S-Y, Mao, J, Xu, L, Yang, X, \Weid, \Me, Li, L, \Kurt, \Jamie,
+  Mineral paragenesis in Paleozoic manganese ore deposits: Depositional versus post-depositional formation processes,
+  \emph{Geochimica et Cosmochimica Acta}, in press.
+  \DOI{10.1016/j.gca.2022.03.030}
+  \\
+  ~ &
+  \Weid, Chen, N, Sun, W, \Me, \Arps, Teitler, Y, Somelar, P, \Jamie, Babechuk, MG, \Noah, \Dan, \Kurt,
+  Binding and transport of Cr(III) by clay minerals during the Great Oxidation Event,
+  \emph{Earth and Planetary Science Letters} 584, 117503.
+  \DOI{10.1016/j.epsl.2022.117503}
+  \\
+  ~ &
+  \Me, \Noah, \Sus, \Jamie, Wang, C, \Tim, \Kart, \Parn, \Sasha, \Yul, \Arps, \Aivo, \Kurt,
+  Chromium evidence for protracted oxygenation during the Paleoproterozoic,
+  \emph{Earth and Planetary Science Letters} 584, 117501.
+  \DOI{10.1016/j.epsl.2022.117501}
+  \Preprint{10.31223/X5NP6G}
+  \\
+  ~ &
+  Soomer, S, Somelar, P, \Me, \Aivo, \Arps,
+  Geochemistry and mineralogy of Paleoproterozoic metasediments in the Imandra-Varzuga Greenstone Belt: Implications for sediment provenance, tectonic settings and weathering intensity at the transition to oxygenated surface environments,
+  \emph{Precambrian Research} 371, 106578.
+  \DOI{10.1016/j.precamres.2022.106578}
+  \\
+  ~ &
+  \Dylan, \Kim, \Stef, \Me, \Kurt, Grandin, P, \Mark,
+  Evaporative silicification in floating microbial mats: patterns of oxygen production and preservation potential in silica-undersaturated streams, El Tatio, Chile,
+  \emph{Geobiology} 20, 310–330.
+  \DOI{10.1111/gbi.12476}
+  \\
+  \Year{2021} &
+  \Me, \Jamie, \Noah, Bekker, A, \Kurt,
+  Iron Formations as Palaeoenvironmental Archives,
+  \emph{Elements in Geochemical Tracers in Earth System Science}, Cambridge University Press.
+  \DOI{10.1017/9781108993791}
+  \\
+  ~ &
+  Zhang, Y, Li, J, Chen, L, Wei, Y, Shi, Q, Wang, D-G, Wu, Q-M, Song, L-Y, Tian, M, Kuang, H-W, Liu, Y-Q, \Me, Bai, H-Q, Liu, Z-L, Wang, Y-C, Qiao, D-W, Zhu, W-J,
+  Manganese carbonate stromatolites of the Ediacaran Doushantuo Formation in Chengkou, northern Yangtze Craton, China,
+  \emph{Journal of Palaeogeography} 10, 22.
+  \DOI{10.1186/s42501-021-00099-9}
+  \\
+  ~ &
+  Farrell, ÚC..., \Me..., \Noah, Lau, KV, Johnston, DT, Sperling, EA,
+  The Sedimentary Geochemistry and Paleoenvironments Project,
+  \emph{Geobiology} 19, 545–556.
+  \DOI{10.1111/gbi.12462}
+  \\
+  ~ &
+  Tong, X, Wang, C, Peng, Z, Li, Y, \Weid, \Me, \Jamie, Zhang, L, Ke, Q, Zhai, M, \Kurt,
+  Depositional and Environmental Constraints on the Late Neoarchean Dagushan Deposit (Anshan-Benxi Area, North China Craton): An Algoma-Type Banded Iron Formation,
+  \emph{Economic Geology} 116, 1575–1597.
+  \DOI{10.5382/econgeo.4841}
+  \\
+  ~ &
+  Shen, F, Yue, L, Liu, Z, Yang, W, \Me, Jin, H, Li, F, Zhou, Y, Zhang, M, Jiang, R,
+  Heterogeneity of tight sandstone reservoirs based on fractal theory: the Xu-6 member of Xujiahe Formation in Guang’an area, central Sichuan Basin,
+  \emph{Arabian Journal of Geosciences} 14, 1515.
+  \DOI{10.1007/s12517-021-07851-4}
+  \\
+  ~ &
+  Lumiste, K, \Me, \Jake, Stüeken, EE, \Kart, Lang, L, Sepp, H, \Aivo, \Arps,
+  Constraining the conditions of phosphogenesis: stable isotope and trace element systematics of Recent Namibian phosphatic sediments,
+  \emph{Geochimica et Cosmochimica Acta} 302, 141-159.
+  \DOI{10.1016/j.gca.2021.03.022}
+  \\
+  ~ &
+  \Weid, \Me, Li, Y, \Dan, Somelar, P, Moussavou, M, \Sasha, \Aivo, \Arps, \Noah, \Kurt,
+  The kaolinite shuttle links the Great Oxidation and Lomagundi events,
+  \emph{Nature Communications} 12, 2944.
+  \DOI{10.1038/s41467-021-23304-8}
+  \GitHub{kaarelmand/hao\_et\_al\_kaolinite\_shuttle}
+  \\
+  ~ &
+  \Weid, \Me, Swaren, L, \Kim, \Stef, \Dylan, \Mark, Wilson, SA, \Dan, \Kurt,
+  Trace elemental partitioning on clays derived from hydrothermal muds of the El Tatio Geyser Field, Chile,
+  \emph{Journal of Geophysical Research: Solid Earth} 126, e2020JB021422.
+  \DOI{10.1029/2020JB021422}
+  \\
+  ~ &
+  \Me, \Stef, \Kart, \Marie, Lumiste, K, \Jamie, \Tim, \Sasha, \Arps, \Aivo, \Kurt,
+  Iron Isotopes Reveal a Benthic Iron Shuttle in the Palaeoproterozoic Zaonega Formation: Basinal Restriction, Euxinia, and the Effect on Global Palaeoredox Proxies,
+  \emph{Minerals} 11, 368.
+  \DOI{10.3390/min11040368}
+  \\
+  ~ &
+  Tong, X, \Me, Li, Y, Zhang, L, Peng, Z, Wu, Q, Li, P, Zhai, M, \Jamie, Wang, C, \Kurt,
+  Iron and Carbon Isotope Constraints on the Formation Pathway of Iron-Rich Carbonates within the Dagushan Iron Formation, North China Craton,
+  \emph{Minerals} 11, 94.
+  \DOI{10.3390/min11010094}
+  \\
+  \Year{2020} &
+  \Tim, \Aivo, \Bau, Prave, A, \Kart, \Me, Sepp, H, Martma, T, \Sasha, \Arps,
+  Oxygenated conditions in the aftermath of the Lomagundi-Jatuli Event: The carbon isotope and rare earth element signatures of the Paleoproterozoic Zaonega Formation, Russia,
+  \emph{Precambrian Research} 347, 105855.
+  \DOI{10.1016/j.precamres.2020.105855}
+  \\
+  ~ &
+  \Hao, Pi, D, Jiang, S-Y, \Weid, Cui, H, \Jamie, \Me, Li, L, \Noah, \Kurt,
+  Hydrothermally induced 34S enrichment in pyrite as an alternative explanation of the Late-Devonian sulfur isotope excursion in South China,
+  \emph{Geochimica et Cosmochimica Acta} 283, 1–21.
+  \DOI{10.1016/j.gca.2020.05.017}
+  \\
+  ~ &
+  \Kart, \Aivo, \Aub, \Arps, \Tim, \Me, \Sasha, Rychanchik, DV, \Tony,
+  Identifying global vs. basinal controls on Paleoproterozoic organic carbon and sulfur isotope records,
+  \emph{Earth-Science Reviews} 207, 103230.
+  \DOI{10.1016/j.earscirev.2020.103230}
+  \\
+  ~ &
+  \Hao, Pi, D-H, Jiang, S-Y, \Weid, \Me, \Jamie, Li, L, \Kurt,
+  New constraints on the onset age of the Emeishan LIP volcanism and implications for the Guadalupian mass extinction,
+  \emph{Lithos} 360–361, 105441.
+  \DOI{10.1016/j.lithos.2020.105441}
+  \\
+  ~ &
+  \Me, \Stef, \Jamie, \Marie, \Kart, \Tim, \Parn, \Chris, \Sasha, \Noah, \Arps, \Aivo, \Kurt,
+  Palaeoproterozoic oxygenated oceans following the Lomagundi–Jatuli Event,
+  \emph{Nature Geoscience} 13, 302–306.
+  \DOI{10.1038/s41561-020-0558-5}
+  \\
+  ~ &
+  \Jamie, \Me, \Noah, \Dan, \Kurt,
+  Trace Metals,
+  \emph{Encyclopedia of Astrobiology}, Springer.
+  \DOI{10.1007/978-3-642-27833-4\_5422-1}
+  \\
+  \Year{2019} &
+  Lumiste, K, \Me, \Jake, \Parn, Lang, L, \Aivo, \Arps,
+  REE+Y uptake and diagenesis in Recent sedimentary apatites,
+  \emph{Chemical Geology} 525, 268–281.
+  \DOI{10.1016/j.chemgeo.2019.07.034}
+  \\
+  ~ &
+  Soomer, S, Somelar, P, \Me, Driese, SG, \Aivo, \Arps,
+  High-CO2, acidic and oxygen-starved weathering at the Fennoscandian Shield at the Archean-Proterozoic transition,
+  \emph{Precambrian Research} 327, 68–80.
+  \DOI{10.1016/j.precamres.2019.03.001}
+  \\
+  \Year{2018} &
+  \Kart, \Aivo, \Aub, \Arps, Izon, G, Patel, NK, McLean, F, \Tim, \Me, Bui, TH, \Sasha, Rychanchik, DV, \Tony,
+  Multiple sulphur isotope records tracking basinal and global processes in the 1.98 Ga Zaonega Formation, NW Russia,
+  \emph{Chemical Geology} 499, 151–164.
+  \DOI{10.1016/j.chemgeo.2018.09.025}
+  \\
+  ~ &
+  \Me, \Arps, \Aivo, Crosby, CH, \Jake, \Kurt, Wirth, R, Schreiber, A, Lumiste, K,
+  Authigenesis of biomorphic apatite particles from Benguela upwelling zone sediments off Namibia: The role of organic matter in sedimentary apatite nucleation and growth,
+  \emph{Geobiology} 16, 640–658.
+  \DOI{10.1111/gbi.12309}
+  \\
+  ~ &
+  \Me, Muehlenbachs, K, McKellar, RC, Wolfe, AP, \Kurt,
+  Distinct origins for Rovno and Baltic ambers: Evidence from carbon and hydrogen stable isotopes,
+  \emph{Palaeogeography, Palaeoclimatology, Palaeoecology} 505, 265–273.
+  \DOI{10.1016/j.palaeo.2018.06.004}
+  \\
+  \Year{2014} &
+  \Aivo, Joosu, L, \Arps, \Tony, \Sasha, Črne, AE, Martin, AP, Fallick, AE, Somelar, P, Üpraus, K, \Me, Roberts, NMW, \Mark, Wirth, R, Schreiber, A,
+  Potential influence of sulphur bacteria on Palaeoproterozoic phosphogenesis,
+  \emph{Nature Geoscience} 7, 20–24.
+  \DOI{10.1038/NGEO2005}
+  \\
+\end{EntriesTable}
+
+\subsection{Non-peer-reviewed Papers}
+
+\begin{EntriesTable}
+
+% Geoloogia sügiskooli kogumiku 2021 eessõna -- https://drive.google.com/file/d/1pYUZcUevOOyS7Y_IVkpP1ZaxPEvJoxH3/view
+  \Year{2021} &
+  \Me,
+  Eessõna [Foreword],
+  \emph{Schola Geologica XVII, Vaatame edasi!}, Estonian Naturalists' Society, p. 8.
+  \Website{http://sygiskool.ee/2014/?page\_id=11}
+  \\
+  \Year{2014} &
+  \Me,
+  Mikrofossiilid maailma vanimates fosforiitides,
+  \emph{Schola Geologica X, Fosfor – aegade algusest tänapäevani}, Estonian Naturalists' Society, pp. 12–15.
+  \Website{http://sygiskool.ee/2014/?page\_id=11}
+  \\
+\end{EntriesTable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Miscellaneous}
+
+\subsection{Affiliations}
+
+\begin{EntriesTable}
+  \Duration{2019}{\Ongoing} & Geobiology Society
+\end{EntriesTable}
+
+\end{document}
